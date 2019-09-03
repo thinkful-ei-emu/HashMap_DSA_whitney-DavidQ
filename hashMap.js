@@ -1,4 +1,4 @@
- class HashMap{
+class HashMap{
   constructor(init=8){
     this.length = 0;
     this._table = [];
@@ -7,14 +7,30 @@
   }
   set(key,value){
     let DELETED = false;
-    const loadRatio = (this.length + this._deleted + 1)/this.capacity;
+    const loadRatio = (this.length + this._deleted + 1)/this._capacity;
+    debugger;
     if(loadRatio > HashMap.MAX_LOAD_RATIO){
+      
       this._resize(this._capacity * HashMap.SIZE_RATIO);
     }
     const index = this._findSlot(key);
     if(!this._table[index])
       this.length++;
     this._table[index] = {key,value,DELETED};
+  }
+  get(key){
+    let index = this._findSlot(key);
+    if(this._table[index] === undefined)
+      throw new Error('Key Error');
+    return this._table[index].value;
+  }
+  delete(key){
+    let index = this._findSlot(key);
+    if(this._table[index] === undefined)
+      throw new Error('Key Error');
+    this._table[index].DELETED = true;
+    this.length--;
+    this._deleted++;
   }
 
   _findSlot(key) {
@@ -43,7 +59,16 @@
   }
 
   _resize(size) {
-    
+    let oldSlots = this._table;
+    this._capacity = size;
+    this.length = 0;//reset length
+    this._deleted = 0;
+    this._table = [];
+    for(let slot of oldSlots){
+      if( slot !== undefined && !slot.DELETED)
+        this.set(slot.key, slot.value);
+    }
+
   }
 }
 
