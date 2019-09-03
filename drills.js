@@ -9,6 +9,7 @@ function main(){
     {'Ent': 'Treebeard'}];
   testData.forEach((obj)=>lor.set(Object.keys(obj)[0],obj[Object.keys(obj)[0]]));
   console.log(lor);
+  removeDuplicates('google all that you think can think of');
 }
 main();
 
@@ -40,3 +41,25 @@ main();
 //the other two where overwritten because they used the same key
 
 //capcity is 24 becuse 8 * 3 = 24
+
+//#4 remove duplicates
+
+function removeDuplicates(str){
+  let results ='';
+  let map = new HashMap();
+  for(let x = 0;x < str.length;x++)
+  {
+    map.set(str[x],str[x]);
+  }
+  for(let x = 0;x < str.length;x++)
+  { try{
+    results += map.get(str[x]);
+    map.delete(str[x]);
+  }
+  catch(key){
+  }
+  }
+
+  console.log(results);
+  return results;
+}
