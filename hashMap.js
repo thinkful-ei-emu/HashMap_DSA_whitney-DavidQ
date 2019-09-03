@@ -16,23 +16,26 @@ class HashMap{
       this._resize(this._capacity * HashMap.SIZE_RATIO);
     }
     const index = this._findSlot(key);
-    if(!this._table[index]) {
+    //if(!this._table[index]) {
       this.length++;
       this._table[index] = {key,value,DELETED};
-    }
-    else {
+    //}
+    /* else {//somethings already there
       let data = this._table[index];
       this.length++;
-      this._table[index] = {key: data.key, value: new LinkedList()};
-      this._table[index].value.insertLast(data);
+      if(this._table[index].value.head === undefined){
+        this._table[index] = {key: data.key, value: new LinkedList()};
+        this._table[index].value.insertLast(data);
+      }
+      
       this._table[index].value.insertLast({key, value, DELETED});
-    }
+    } */
     
   }
   get(key){
     let index = this._findSlot(key);
     if(this._table[index] === undefined)
-      throw new Error('Key Error');
+      return undefined;
     return this._table[index].value;
   }
   delete(key){
@@ -51,7 +54,7 @@ class HashMap{
     for (let i=start; i<start + this._capacity; i++) {
       const index = i % this._capacity;
       const slot = this._table[index];
-      if (slot === undefined || (slot.key === key && !slot.DELETED)) {
+      if (slot === undefined || (!slot.DELETED)) {
         return index;
       }
     }

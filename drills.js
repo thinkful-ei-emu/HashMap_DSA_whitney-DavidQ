@@ -27,7 +27,8 @@ function main(){
   //removeDuplicates('google all that you think can think of');
   //console.log(lor);
   //WhatDoesThisDo();
-  console.log(palindromeChecker('north'));
+  //console.log(palindromeChecker('north'));
+  AnagramGrouper(['east','cars','acre','arcs','teas','eats','race']);
 }
 main();
 
@@ -117,4 +118,23 @@ function palindromeChecker(string) {
     }
   }
   return true;
+}
+function AnagramGrouper(arr){
+  let map = new HashMap();
+  let alpha = {};
+  for(let x = 0; x < arr.length;x++){
+    let key = arr[x].split('').sort((a,b)=>a>b).join('');
+    alpha[key] ='';
+    if(map.get(arr[x]) === undefined){
+      map.set(key,[arr[x]]);
+
+    }
+    else{
+      map.set(key,[...map.get(key),arr[x]]);
+    }
+  }
+     
+  console.log(Object.keys(alpha));
+  console.log(Object.keys(alpha).map((item)=>map.get(item)));  
+
 }
