@@ -1,5 +1,20 @@
 let HashMap = require('./hashMap');
 
+const WhatDoesThisDo = function(){
+  let str1 = 'Hello World.';
+  let str2 = 'Hello World.';
+  let map1 = new HashMap();
+  map1.set(str1,10);
+  map1.set(str2,20);
+  let map2 = new HashMap();
+  let str3 = str1;
+  let str4 = str2;
+  map2.set(str3,20);
+  map2.set(str4,10);
+
+  console.log(map1.get(str1));
+  console.log(map2.get(str3));
+};
 
 function main(){
   let lor = new HashMap();
@@ -8,7 +23,8 @@ function main(){
     {'Maiar': 'Sauron'}, {'RingBearer': 'Gollum'}, {'LadyOfLight': 'Galadriel'}, {'HalfElven': 'Arwen'},
     {'Ent': 'Treebeard'}];
   testData.forEach((obj)=>lor.set(Object.keys(obj)[0],obj[Object.keys(obj)[0]]));
-  console.log(lor);
+  //console.log(lor);
+  WhatDoesThisDo();
 }
 main();
 
@@ -40,3 +56,13 @@ main();
 //the other two where overwritten because they used the same key
 
 //capcity is 24 becuse 8 * 3 = 24
+
+// ===== 2. WhatDoesThisDo =====
+
+// In the first HashMap, 20 replaces 10 because the key 
+// 'Hello World' is the same.  In the second HashMap, 
+// 10 replaces 20, because we don't have any collision
+// handling in place.
+
+// ===== 3. Demonstrate understanding of Hash maps =====
+// See images
