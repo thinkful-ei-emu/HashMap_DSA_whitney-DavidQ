@@ -1,3 +1,5 @@
+const LinkedList = require('./LinkedList');
+
 class HashMap{
   constructor(init=8){
     this.length = 0;
@@ -14,9 +16,18 @@ class HashMap{
       this._resize(this._capacity * HashMap.SIZE_RATIO);
     }
     const index = this._findSlot(key);
-    if(!this._table[index])
+    if(!this._table[index]) {
       this.length++;
-    this._table[index] = {key,value,DELETED};
+      this._table[index] = {key,value,DELETED};
+    }
+    else {
+      let data = this._table[index];
+      this.length++;
+      this._table[index] = {key: data.key, value: new LinkedList()};
+      this._table[index].value.insertLast(data);
+      this._table[index].value.insertLast({key, value, DELETED});
+    }
+    
   }
   get(key){
     let index = this._findSlot(key);
@@ -69,6 +80,13 @@ class HashMap{
         this.set(slot.key, slot.value);
     }
 
+  }
+
+  fromString(string){
+    for(let x = 0;x < string.length;x++)
+    {
+      this.set(string[x],string[x]);
+    }
   }
 }
 

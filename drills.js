@@ -17,19 +17,17 @@ const WhatDoesThisDo = function(){
 };
 
 function main(){
-  let lor = new HashMap();
-  let testData = [{'Hobbit': 'Bilbo'}, {'Hobbit': 'Frodo'},
-    {'Wizard': 'Gandolf'}, {'Human': 'Aragon'}, {'Elf': 'Legolas'}, {'Maiar': 'The Necromancer'},
-    {'Maiar': 'Sauron'}, {'RingBearer': 'Gollum'}, {'LadyOfLight': 'Galadriel'}, {'HalfElven': 'Arwen'},
-    {'Ent': 'Treebeard'}];
-  testData.forEach((obj)=>lor.set(Object.keys(obj)[0],obj[Object.keys(obj)[0]]));
-<<<<<<< HEAD
-  console.log(lor);
-  removeDuplicates('google all that you think can think of');
-=======
+  // let lor = new HashMap();
+  // let testData = [{'Hobbit': 'Bilbo'}, {'Hobbit': 'Frodo'},
+  //   {'Wizard': 'Gandolf'}, {'Human': 'Aragon'}, {'Elf': 'Legolas'}, {'Maiar': 'The Necromancer'},
+  //   {'Maiar': 'Sauron'}, {'RingBearer': 'Gollum'}, {'LadyOfLight': 'Galadriel'}, {'HalfElven': 'Arwen'},
+  //   {'Ent': 'Treebeard'}];
+  // testData.forEach((obj)=>lor.set(Object.keys(obj)[0],obj[Object.keys(obj)[0]]));
+  // console.log(lor);
+  //removeDuplicates('google all that you think can think of');
   //console.log(lor);
-  WhatDoesThisDo();
->>>>>>> 2d8ad06aca21f34fc997a393ea715074dfc020f3
+  //WhatDoesThisDo();
+  console.log(palindromeChecker('north'));
 }
 main();
 
@@ -92,3 +90,31 @@ function removeDuplicates(str){
 
 // ===== 3. Demonstrate understanding of Hash maps =====
 // See images
+
+// ===== 5. Any permutation a palindrome =====
+// Write an algorithm to check whether any permutation of a string is a palindrome. Given the string "acecarr", the algorithm should return true, because the letters in "acecarr" can be rearranged to "racecar", which is a palindrome. In contrast, given the word "north", the algorithm should return false, because there's no way to rearrange those letters to be a palindrome.
+
+// racecar  -> 2 r's, 2 a's, 2 c's, 1 e
+// palindrome - 2 of every letter, except 1?
+// colision handling = linked lists/separate chaining
+
+function palindromeChecker(string) {
+  // put each letter into hash map
+  let palindromeMap = new HashMap();
+  palindromeMap.fromString(string);
+
+  //console.log(palindromeMap);
+  // check for a LinkedList by index 3 or else not a palindrome
+  let foundSingleLetter = false;
+  for (let i = 0; i < string.length; i++) {
+    if (palindromeMap.get(string[i]).head === undefined) {
+      if (!foundSingleLetter) {
+        foundSingleLetter = true;
+      }
+      else {
+        return false;
+      }
+    }
+  }
+  return true;
+}
