@@ -17,18 +17,19 @@ const WhatDoesThisDo = function(){
 };
 
 function main(){
-  // let lor = new HashMap();
-  // let testData = [{'Hobbit': 'Bilbo'}, {'Hobbit': 'Frodo'},
-  //   {'Wizard': 'Gandolf'}, {'Human': 'Aragon'}, {'Elf': 'Legolas'}, {'Maiar': 'The Necromancer'},
-  //   {'Maiar': 'Sauron'}, {'RingBearer': 'Gollum'}, {'LadyOfLight': 'Galadriel'}, {'HalfElven': 'Arwen'},
-  //   {'Ent': 'Treebeard'}];
-  // testData.forEach((obj)=>lor.set(Object.keys(obj)[0],obj[Object.keys(obj)[0]]));
-  // console.log(lor);
+  let lor = new HashMap();
+  let testData = [{'Hobbit': 'Bilbo'}, {'Hobbit': 'Frodo'},
+    {'Wizard': 'Gandolf'}, {'Human': 'Aragon'}, {'Elf': 'Legolas'}, {'Maiar': 'The Necromancer'},
+    {'Maiar': 'Sauron'}, {'RingBearer': 'Gollum'}, {'LadyOfLight': 'Galadriel'}, {'HalfElven': 'Arwen'},
+    {'Ent': 'Treebeard'}];
+  testData.forEach((obj)=>lor.set(Object.keys(obj)[0],obj[Object.keys(obj)[0]]));
+  console.log(lor.get('Hobbit'));
+  console.log(lor);
   //removeDuplicates('google all that you think can think of');
   //console.log(lor);
   //WhatDoesThisDo();
   //console.log(palindromeChecker('north'));
-  AnagramGrouper(['east','cars','acre','arcs','teas','eats','race']);
+  //AnagramGrouper(['east','cars','acre','arcs','teas','eats','race']);
 }
 main();
 
@@ -119,22 +120,24 @@ function palindromeChecker(string) {
   }
   return true;
 }
+
+// input: 'east','cars','acre','arcs','teas','eats','race'
 function AnagramGrouper(arr){
   let map = new HashMap();
-  let alpha = {};
+  let alpha = [];
+  
   for(let x = 0; x < arr.length;x++){
     let key = arr[x].split('').sort((a,b)=>a>b).join('');
-    alpha[key] ='';
-    if(map.get(arr[x]) === undefined){
+    
+    if(map.get(key) === undefined){
       map.set(key,[arr[x]]);
-
+      alpha.push(key);
     }
     else{
       map.set(key,[...map.get(key),arr[x]]);
     }
   }
-     
-  console.log(Object.keys(alpha));
-  console.log(Object.keys(alpha).map((item)=>map.get(item)));  
+    
+  console.log(alpha.map((item)=>map.get(item)));  
 
 }
